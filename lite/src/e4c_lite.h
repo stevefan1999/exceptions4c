@@ -17,11 +17,6 @@
 # define E4C_MAX_FRAMES 128
 #endif
 
-/* Maximum length (in bytes) of an exception message */
-#ifndef E4C_MESSAGE_SIZE
-# define E4C_MESSAGE_SIZE 128
-#endif
-
 /* Controls whether file/line info is attached to exceptions */
 #ifndef NDEBUG
 # define E4C_DEBUG_INFO __FILE__, __LINE__
@@ -64,7 +59,9 @@ typedef struct e4c_exception {
 
 #if !defined(E4C_THREAD_LOCAL) && !defined(E4C_DISABLE_TLS)
 # if __STDC_VERSION__ >= 201112 && !defined __STDC_NO_THREADS__
-#  define thread_local _Thread_local
+#  define E4C_THREAD_LOCAL _Thread_local
+#  define E4C_THREAD_LOCAL_PROLOGUE
+#  define E4C_THREAD_LOCAL_EPILOGUE
 /* note that ICC (linux) and Clang are covered by __GNUC__ */
 # elif defined __GNUC__ || \
        defined __SUNPRO_C || \
